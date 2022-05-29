@@ -13,7 +13,7 @@ export interface DataType {
   readonly deposit: string;
 }
 
-export type TransferData = DataType
+export type TransferData = DataType;
 export interface FunctionCallData extends DataType {
   readonly gas: number;
   readonly method_name: string;
@@ -55,6 +55,6 @@ export enum TransactionType {
 export const TransactionTypeImage = new Map<TransactionType, string>([
   [
     TransactionType.Near,
-    "https://crypto-economy.com/wp-content/uploads/2021/11/Near-protocol.jpg",
+    "https://coinyuppie.com/wp-content/uploads/2021/09/4954839_image3.jpg",
   ],
 ]);

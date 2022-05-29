@@ -18,16 +18,19 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
 }) => {
   console.log(transaction);
   return (
-    <Card key={transaction.id} className="w-full bg-gray-700">
+    <Card
+      key={`card_${transaction.id}`}
+      side="lg"
+      className="w-full bg-gray-900"
+    >
       <Card.Image
         src={TransactionTypeImage.get(transactionType)}
         alt={transactionType}
-        className="object-fill"
       />
       <Card.Body className="items-center text-center bg-gray-800">
         <>
-          <InputGroup className="w-9/12">
-            <span className="w-32">Sender</span>
+          <InputGroup className="w-full">
+            <span>Sender</span>
             <Input
               type="text"
               placeholder="10"
@@ -37,8 +40,8 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
               value={transaction?.sender}
             />
           </InputGroup>
-          <InputGroup className="w-9/12">
-            <span className="w-32">Receiver</span>
+          <InputGroup className="w-full">
+            <span>Receiver</span>
             <Input
               type="text"
               placeholder="10"
@@ -51,7 +54,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
           {transaction?.actions?.map((action) => {
             return (
               <InputGroup
-                className="w-9/12"
+                className="w-full"
                 key={`${transaction.id}_${action.type}`}
               >
                 <Input
@@ -70,7 +73,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
               </InputGroup>
             );
           })}
-          <InputGroup className="w-9/12">
+          <InputGroup className="w-full">
             <span className="w-32">Gas Burnt</span>
             <Input
               type="text"

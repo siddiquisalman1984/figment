@@ -14,3 +14,10 @@ export const comparator = (current: Transaction, next: Transaction) =>
 export const condition = (transaction: Transaction) =>
   transaction.success &&
   transaction.actions.some((action) => action.type === ActionType.Transfer);
+
+export const getDifference = (one: Transaction[], two: Transaction[]) =>
+  one.filter((transactionOne) => {
+    return !two.some((transactionTwo) => {
+      return transactionOne.id === transactionTwo.id;
+    });
+  });

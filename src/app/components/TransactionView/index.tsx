@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { getTransactions } from "../../api";
 import useInterval from "../../hooks/useInterval";
 import { POLLING_DELAY } from "../../constants";
-import { comparator, condition, filterAndSortTransaction } from "../../utils";
+import {
+  comparator,
+  condition,
+  filterAndSortTransaction,
+  getDifference,
+} from "../../utils";
 import Carousel from "../../../design-system/molecules/Carousel";
 import CarouselItem from "../../../design-system/molecules/Carousel/CarouselItem";
 import Spinner from "../../../design-system/atoms/Spinner";
@@ -32,13 +37,24 @@ export const TransactionView: React.FC<TransactionViewType> = ({
 
       getTransactions(transactionType)
         .then((response) => {
-          const transactions = filterAndSortTransaction(
+          const data = filterAndSortTransaction(
             response?.data,
             condition,
             comparator
           );
-          setTransaction(transactions);
-          if (transactions && transactions.length === 0) {
+          if (data && data.length > 0) {
+            if (
+              getDifference(data, transactions).length > 0 ||
+              getDifference(transactions, data).length > 0
+            ) {
+              setNotification({
+                message: "Transactions updated",
+                variant: "success",
+              });
+            }
+          }
+          setTransaction(data);
+          if (data && data.length === 0) {
             setNotification({
               message: "No transactions were found",
               variant: "warning",
@@ -70,7 +86,7 @@ export const TransactionView: React.FC<TransactionViewType> = ({
         >
           {transactions?.map((transaction) => {
             return (
-              <CarouselItem key={`${transaction.id}`}>
+              <CarouselItem key={`carousel_${transaction.id}`}>
                 <TransactionCard
                   transaction={transaction}
                   transactionType={transactionType}
