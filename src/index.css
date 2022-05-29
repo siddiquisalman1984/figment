@@ -8,3 +8,9 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+.spinner-border {
+  vertical-align: -0.125em;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+}
