@@ -15,6 +15,7 @@ import Spinner from "../../../design-system/atoms/Spinner";
 import { useNotifications } from "../../providers/NotificationsContext";
 import { TransactionCard } from "../TransactionCard";
 import Button from "../../../design-system/atoms/Button";
+import { NotificationManager } from "../NotificationManager";
 
 export interface TransactionViewType {
   readonly transactionType: TransactionType;
@@ -42,14 +43,19 @@ export const TransactionView: React.FC<TransactionViewType> = ({
             condition,
             comparator
           );
-          if (data && data.length > 0) {
+          if (
+            data &&
+            data.length > 0 &&
+            transactions &&
+            transactions.length > 0
+          ) {
             if (
               getDifference(data, transactions).length > 0 ||
               getDifference(transactions, data).length > 0
             ) {
               setNotification({
                 message: "Transactions updated",
-                variant: "success",
+                variant: "info",
               });
             }
           }
@@ -77,7 +83,12 @@ export const TransactionView: React.FC<TransactionViewType> = ({
   );
   return (
     <>
-      {isLoading && !transactions && <Spinner />}
+      <NotificationManager />
+      {isLoading && !transactions && (
+        <div className="flex items-center justify-center h-1/3">
+          <Spinner />
+        </div>
+      )}
       {transactions && transactions.length > 0 && (
         <Carousel
           className="rounded-box"

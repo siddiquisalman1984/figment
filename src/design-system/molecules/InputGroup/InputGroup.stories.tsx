@@ -5,7 +5,7 @@ import InputGroup, { InputGroupProps } from ".";
 import Input from "../../atoms/Input";
 
 export default {
-  title: "Layout/InputGroup",
+  title: "Molecules/InputGroup",
   component: InputGroup,
 } as Meta;
 

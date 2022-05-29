@@ -16,7 +16,6 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
   transaction,
   transactionType,
 }) => {
-  console.log(transaction);
   return (
     <Card
       key={`card_${transaction.id}`}
